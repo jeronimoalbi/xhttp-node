@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhttp xmlns:xhttp="http://www.xhttp.org/schema" version="1.0">
+	<xhttp:schema version="2.0">
+		<xhttp:info name="service" value="example"/>
+		<xhttp:info name="host" value="http://localhost/xnode"/>
+		<xhttp:info name="port" value="80"/>
+		<xhttp:info name="author" value="James Watts"/>
+		<xhttp:info name="email" value="contact@jameswatts.info"/>
+		<xhttp:info name="link" value="http://www.xhttp.org"/>
+		<xhttp:info name="version" value="2.0"/>
+		<xhttp:info name="build" value="20110401"/>
+		<xhttp:action name="hello22" function="hello22">
+			<xhttp:return type="4"/>
+		</xhttp:action>
+		<xhttp:action name="test22" function="test22">
+			<xhttp:exception code="99" message="You must pass a string of text"/>
+			<xhttp:argument name="text" type="4"/>
+			<xhttp:return type="4"/>
+		</xhttp:action>
+		<xhttp:action name="error22" function="error22">
+			<xhttp:exception code="22" message="Action failed"/>
+			<xhttp:return type="0"/>
+		</xhttp:action>
+	</xhttp:schema>
+	<xhttp:schema version="1.2">
+		<xhttp:info name="service" value="example"/>
+		<xhttp:info name="host" value="http://localhost/xnode"/>
+		<xhttp:info name="port" value="80"/>
+		<xhttp:info name="author" value="James Watts"/>
+		<xhttp:info name="email" value="contact@jameswatts.info"/>
+		<xhttp:info name="link" value="http://www.xhttp.org"/>
+		<xhttp:info name="version" value="1.2"/>
+		<xhttp:info name="build" value="20110401"/>
+		<xhttp:action name="hello2" function="hello2">
+			<xhttp:return type="4"/>
+		</xhttp:action>
+		<xhttp:action name="test2" function="test2">
+			<xhttp:exception code="99" message="You must pass a string of text"/>
+			<xhttp:argument name="text" type="4"/>
+			<xhttp:return type="4"/>
+		</xhttp:action>
+		<xhttp:action name="error2" function="error2">
+			<xhttp:exception code="22" message="Action failed"/>
+			<xhttp:return type="0"/>
+		</xhttp:action>
+	</xhttp:schema>
+	<xhttp:schema version="1.1">
+		<xhttp:info name="service" value="example"/>
+		<xhttp:info name="host" value="http://localhost/xnode"/>
+		<xhttp:info name="port" value="80"/>
+		<xhttp:info name="author" value="James Watts"/>
+		<xhttp:info name="email" value="contact@jameswatts.info"/>
+		<xhttp:info name="link" value="http://www.xhttp.org"/>
+		<xhttp:info name="version" value="1.1"/>
+		<xhttp:info name="build" value="20110401"/>
+		<xhttp:action name="hello1" function="hello1">
+			<xhttp:return type="4"/>
+		</xhttp:action>
+		<xhttp:action name="test1" function="test1">
+			<xhttp:exception code="99" message="You must pass a string of text"/>
+			<xhttp:argument name="text" type="4"/>
+			<xhttp:return type="4"/>
+		</xhttp:action>
+		<xhttp:action name="error1" function="error1">
+			<xhttp:exception code="22" message="Action failed"/>
+			<xhttp:return type="0"/>
+		</xhttp:action>
+	</xhttp:schema>
+	<xhttp:schema version="1.0">
+		<xhttp:info name="service" value="example"/>
+		<xhttp:info name="host" value="http://localhost/xnode"/>
+		<xhttp:info name="port" value="80"/>
+		<xhttp:info name="author" value="James Watts"/>
+		<xhttp:info name="email" value="contact@jameswatts.info"/>
+		<xhttp:info name="link" value="http://www.xhttp.org"/>
+		<xhttp:info name="version" value="1.0"/>
+		<xhttp:info name="build" value="20110401"/>
+		<xhttp:action name="hello" function="hello">
+			<xhttp:return type="4"/>
+		</xhttp:action>
+		<xhttp:action name="test" function="test">
+			<xhttp:exception code="99" message="You must pass a string of textñññ"/>
+			<xhttp:argument name="text" type="4"/>
+			<xhttp:return type="4"/>
+		</xhttp:action>
+		<xhttp:action name="error" function="error">
+			<xhttp:exception code="22" message="Action failed"/>
+			<xhttp:return type="0"/>
+		</xhttp:action>
+	</xhttp:schema>
+</xhttp>
