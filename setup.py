@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="xhttpnode",
-    version="1.0.0",
+    version="0.1.0",
     author="Jeronimo Jose Albi",
     description="Node server that processes XHTTP requests",
     license="BSD",
