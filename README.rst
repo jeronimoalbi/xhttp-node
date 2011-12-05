@@ -1,9 +1,9 @@
 =============
-Python X-Node
+Python XHTTP-Node
 =============
 
 What is it ?
 ____________
 
-Is an implementation of the XHTTP protocol (http://www.xhttp.org).
+Is a Python implementation of the XHTTP protocol (http://www.xhttp.org).
 
