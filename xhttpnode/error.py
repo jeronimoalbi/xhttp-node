@@ -67,29 +67,29 @@ class XHTTPError(Exception):
         return unicode(self).encode("utf8")
 
 
-class ServiceNotSpecifiedError(XHTTPError):
+class ModeNotSupportedError(XHTTPError):
     code = 450
+    message = "Mode Not Supported"
+
+
+class ServiceNotSpecifiedError(XHTTPError):
+    code = 451
     message = "Service Not Specified"
 
 
 class ActionNotSpecifiedError(XHTTPError):
-    code = 451
+    code = 452
     message = "Action Not Specified"
 
 
 class ServiceNotFoundError(XHTTPError):
-    code = 452
+    code = 453
     message = "Service Not Found"
 
 
 class ActionNotFoundError(XHTTPError):
-    code = 453
-    message = "Action Not Found"
-
-
-class SchemaNotFoundError(XHTTPError):
     code = 454
-    message = "Schema Not Found"
+    message = "Action Not Found"
 
 
 class InternalExceptionError(XHTTPError):
@@ -163,4 +163,3 @@ class Error108(XHTTPProtocolError):
 class Error109(XHTTPProtocolError):
     code = 109
     message = "Incompatible protocol version"
-

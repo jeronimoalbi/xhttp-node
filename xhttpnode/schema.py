@@ -149,11 +149,3 @@ def parse_schema_document(file_name):
         raise SchemaParseError(msg)
 
     return schemas
-
-
-if __name__ == "__main__":
-    from pprint import pprint
-
-    schemas = parse_schema_document('schema.xml')
-    pprint(schemas)
-

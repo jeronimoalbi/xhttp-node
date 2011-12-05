@@ -60,7 +60,7 @@ def start_node(service_dir, host='localhost', port=8888):
 if __name__ == "__main__":
     #TODO: Parse arguments to support other params like port or host
     if len(sys.argv) != 2:
-        print "Usage: python -m xhttpnode SCHEMA_FILE"
+        print "Usage: python -m xhttpnode SERVICE_DIR"
         sys.exit(1)
 
     #TODO: use debugging when debug argument is available

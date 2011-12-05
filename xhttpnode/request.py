@@ -54,10 +54,10 @@ class Request(request.Request):
     def x_mode(self):
         """Get XHTTP request X-Mode
         
-        Return: A string or None when no mode header exists.
+        Return: A string or MODE_PERFORM when no mode header exists.
 
         """
-        return self.headers.get("X-Mode", None)
+        return self.headers.get("X-Mode", MODE_PERFORM)
 
     @property
     def x_version(self):
@@ -114,17 +114,26 @@ class Request(request.Request):
         arguments = [arg.split(";") for arg in arguments]
         #convert argument types to integer and add them to dictionary
         x_args = {}
-        for (name, value) in arguments:
+        for (name, value_type) in arguments:
             try:
-                x_args[name] = int(value)
+                x_args[name] = int(value_type)
             except TypeError:
                 msg = u"Invalid XHTTP data type %s for argument %s" \
-                    % (name, value)
+                    % (name, value_type)
 
                 raise RequestException(msg)
 
         return x_args
-        
+    @property
+    def x_arguments_values(self):
+        """Get a dictionary with XHTTP request X-Arguments values."""
+        x_args_values = {}
+        for (name, value_type) in self.x_arguments.items():
+            #TODO: get values from request
+            pass
+
+        return x_args_values
+
     @property
     def x_encoding(self):
         """Get XHTTP request X-Encoding
@@ -133,4 +142,3 @@ class Request(request.Request):
 
         """
         return self.headers.get("X-Encoding", self.default_x_encoding)
-

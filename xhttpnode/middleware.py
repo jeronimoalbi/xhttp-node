@@ -28,7 +28,6 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 import logging
-import sys
 
 from xhttpnode import error
 from xhttpnode.node import Node
@@ -58,12 +57,17 @@ class XHTTPNodeMiddleware(object):
 
     def __call__(self, environ, start_response):
         request = Request(self.node, environ)
+        #check that version is valid for current node
+        try:
+            x_version = float(request.x_version)
+        except ValueError:
+            x_version = None
+        
+        if x_version > self.node.server_version or not x_version:
+            raise error.VersionNotSupportedError()
 
         try:
-            if 'X-Mode' not in request.headers:
-                raise error.InternalExceptionError("Missing X-Mode header")
-
-            if request.headers['X-Mode'] == MODE_PERFORM:
+            if request.x_mode == MODE_PERFORM:
                 #get controller in charge of performing request action
                 controller = self.node.get_request_controller(request)
                 if self.application:
@@ -89,4 +93,3 @@ class XHTTPNodeMiddleware(object):
             response = Response.create_from_error(err)
 
         return response(environ, start_response)
-

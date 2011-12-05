@@ -48,7 +48,7 @@ class Response(response.Response):
         This method creates a response initialized with XHTTP error info.
 
         """
-        content_type = "%s; charset=utf-8" % self.default_content_type
+        content_type = "%s; charset=utf-8" % cls.default_content_type
 
         headers = dict(error.headers)
         headers['Content-Type'] = content_type 

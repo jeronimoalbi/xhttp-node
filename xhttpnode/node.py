@@ -44,8 +44,9 @@ LOG = logging.getLogger(__name__)
 
 class Node(object):
     """Nose server that handles XHTTP requests"""
-    #XHTTP schema version supported by current node
-    schema_version = "1.0"
+
+    #XHTTP version supported by current server node
+    server_version = "1.0"
 
     def __init__(self, service_dir):
         #TODO: implement dynamic XML file update
@@ -68,9 +69,9 @@ class Node(object):
             raise error.InternalExceptionError("Missing X-Version header")
 
         LOG.debug(u"Validating X-Version %s", version)
-        if version != self.schema_version:
+        if version != self.server_version:
             headers = {}
-            headers['X-Version'] = self.schema_version
+            headers['X-Version'] = self.server_version
 
             raise error.VersionNotSupportedError(headers=headers)
 
@@ -100,7 +101,7 @@ class Node(object):
         version = self._get_x_version(request)
         if version not in service:
             headers = {}
-            headers['X-Version'] = self.schema_version
+            headers['X-Version'] = self.server_version
 
             raise error.VersionNotSupportedError(headers=headers)
 
@@ -138,9 +139,56 @@ class Node(object):
         
         return info_list
 
+    @classmethod
+    def _action_to_list(cls, action):
+        #convert exceptions to list
+        exception_list = []
+        for exc in action['exceptions'].values():
+            exc_code = int(exc['code'])
+            exc_message = exc['message']
+            exception_list.append([exc_message, exc_code])
+
+        #convert arguments to list
+        argument_list = []
+        for arg in action['args'].values():
+            #TODO: implement optional arg properties (default, validate, ..)
+            arg_name = arg['name']
+            arg_type = int(arg['type'])
+            argument_list.append([arg_name, arg_type])
+        
+        action_name = action['name']
+        return_value = int(action['return'])
+
+        return [action_name, exception_list, argument_list, return_value]
+
     def process_mode_schema(self, request):
-        pass
-    
+        services = self._get_x_services(request)
+        version = self._get_x_version(request)
+        service_name = services[version]['info']['service']
+        actions = services[version]['actions']
+        LOG.debug(u"X-Mode: schema, for service %s[%s]", service_name, version)
+
+        x_action = request.x_action
+        #when action name is given just return schema for it
+        if x_action:
+            if x_action not in actions:
+                raise error.ActionNotFoundError()
+
+            LOG.debug(u"X-Action: %s", x_action)
+            #add current action to list
+            current_action = actions[x_action]
+            action_list = [current_action]
+        else:
+            LOG.debug(u"No X-Action given. Listing all actions")
+            #add all actions to list
+            action_list = actions.values()
+
+        result_list = []
+        for action in action_list:
+            result_list.append(self._action_to_list(action))
+            
+        return result_list
+
     def process_request(self, request):
         content = None
         mode = request.x_mode
@@ -150,6 +198,8 @@ class Node(object):
             content = self.process_mode_info(request)
         elif mode == MODE_SCHEMA:
             content = self.process_mode_schema(request)
+        else:
+            raise error.ModeNotSupportedError()
 
         if not content:
             if not mode:
@@ -164,4 +214,3 @@ class Node(object):
         response.content_type = "application/json; charset=utf-8"
         
         return response
-

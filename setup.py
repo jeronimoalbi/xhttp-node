@@ -15,6 +15,7 @@ setup(
     zip_safe=True,
     include_package_data=True,
     test_suite="tests",
+    test_require="webtest",
     classifiers=[
         "Intended Audience :: Developers",
         "License :: OSI Approved :: BSD License",
